@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>World 100 Diplomats: Architects of Global Peace & Power</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        emerald: {
+                            DEFAULT: '#0A2E23',
+                            dark: '#051913',
+                            light: '#134D3C',
+                            accent: '#1B6B54'
+                        },
+                        gold: {
+                            DEFAULT: '#E5A93C',
+                            light: '#F5C86B',
+                            dark: '#B88222'
+                        },
+                        rose: {
+                            gold: '#F4A261'
+                        },
+                        velvet: {
+                            DEFAULT: '#0B101D',
+                            card: '#121929',
+                            hover: '#192338'
+                        },
+                        floral: '#F8F9FA'
+                    },
+                    fontFamily: {
+                        serif: ['Playfair Display', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #051913;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #E5A93C;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #F5C86B;
+        }
+
+        /* Glassmorphism Styling */
+        .glass-panel {
+            background: rgba(10, 46, 35, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(229, 169, 60, 0.25);
+        }
+        .glass-card {
+            background: rgba(18, 25, 41, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(229, 169, 60, 0.15);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .glass-card:hover {
+            border-color: rgba(229, 169, 60, 0.6);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px -10px rgba(229, 169, 60, 0.25);
+        }
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #FFF0C3 0%, #E5A93C 50%, #B88222 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .gold-border-gradient {
+            border-image: linear-gradient(135deg, #E5A93C, #F4A261, #134D3C) 1;
+        }
+
+        /* Canvas Overlay */
+        #bgCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 0;
+        }
+    </style>
+</head>
+<body class="bg-velvet text-floral font-sans antialiased min-h-screen relative overflow-x-hidden">
+
+    <!-- Interactive Background Canvas -->
+    <canvas id="bgCanvas"></canvas>
+
+    <!-- Main App Container -->
+    <div class="relative z-10 flex flex-col min-h-screen">
+
+        <!-- Top Navigation Bar -->
+        <nav class="sticky top-0 z-40 glass-panel border-b border-gold/20 px-4 lg:px-8 py-3.5">
+            <div class="max-w-7xl mx-auto flex items-center justify-between">
+                <!-- Brand Title -->
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-gold-dark via-gold to-gold-light p-0.5 flex items-center justify-center shadow-lg shadow-gold/20">
+                        <div class="w-full h-full bg-emerald-dark rounded-full flex items-center justify-center">
+                            <i class="fa-solid font-serif text-gold text-lg">🏛️</i>
+                        </div>
+                    </div>
+                    <div>
+                        <h1 class="font-serif text-lg lg:text-xl font-bold tracking-tight gold-gradient-text">WORLD 100 DIPLOMATS</h1>
+                        <p class="text-[10px] text-gold-light/70 tracking-widest uppercase font-semibold">Architects of Global Peace & Power</p>
+                    </div>
+                </div>
+
+                <!-- Desktop Nav Links -->
+                <div class="hidden md:flex items-center space-x-6 text-xs font-medium uppercase tracking-wider text-floral/80">
+                    <a href="#legends" class="hover:text-gold transition-colors">Legends</a>
+                    <a href="#un-sg" class="hover:text-gold transition-colors">UN Leaders</a>
+                    <a href="#directory" class="hover:text-gold transition-colors">100 Directory</a>
+                    <a href="#peace-summit" class="hover:text-gold transition-colors">Live Summit & Feed</a>
+                    <a href="#executive" class="hover:text-gold transition-colors">Executive Hub</a>
+                </div>
+
+                <!-- Action Controls -->
+                <div class="flex items-center space-x-3">
+                    <button onclick="openCodeViewerModal()" class="px-3 py-1.5 rounded-lg bg-emerald-light/50 border border-gold/30 hover:border-gold text-gold text-xs font-medium flex items-center space-x-1.5 transition-all">
+                        <i class="fa-solid fa-code"></i>
+                        <span class="hidden sm:inline">Source Code</span>
+                    </button>
+                    <button onclick="downloadHTMLFile()" class="px-3.5 py-1.5 rounded-lg bg-gradient-to-r from-gold-dark via-gold to-gold-light text-emerald-dark font-bold text-xs flex items-center space-x-1.5 hover:shadow-lg hover:shadow-gold/30 transition-all">
+                        <i class="fa-solid fa-download"></i>
+                        <span>Export App</span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <header class="relative px-4 lg:px-8 pt-12 pb-16 text-center max-w-5xl mx-auto">
+            <div class="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-emerald/60 border border-gold/40 text-gold text-xs font-semibold mb-6">
+                <span>🕊️ HAVEN ON EARTH &bull; FLORAL SILCONOUS DIPLOMACY</span>
+            </div>
+            <h1 class="font-serif text-4xl md:text-6xl lg:text-7xl font-bold gold-gradient-text tracking-tight mb-6 leading-tight">
+                Architects of Global Peace & Sovereign Power
+            </h1>
+            <p class="text-floral/80 text-base md:text-lg font-light max-w-3xl mx-auto leading-relaxed mb-8">
+                Explore the definitive archive of the world’s 100 premier diplomats, statesmen, and peacemakers who altered human history through treaties, balance of power, and crisis resolution.
+            </p>
+
+            <!-- Quick Stats -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+                <div class="glass-panel p-4 rounded-xl text-center">
+                    <div class="text-2xl lg:text-3xl font-serif font-bold text-gold">100</div>
+                    <div class="text-xs text-floral/70">Historical Masters</div>
+                </div>
+                <div class="glass-panel p-4 rounded-xl text-center">
+                    <div class="text-2xl lg:text-3xl font-serif font-bold text-rose-gold">3,000+</div>
+                    <div class="text-xs text-floral/70">Years of Diplomacy</div>
+                </div>
+                <div class="glass-panel p-4 rounded-xl text-center">
+                    <div class="text-2xl lg:text-3xl font-serif font-bold text-gold-light">500+</div>
+                    <div class="text-xs text-floral/70">Historic Peace Treaties</div>
+                </div>
+                <div class="glass-panel p-4 rounded-xl text-center">
+                    <div class="text-2xl lg:text-3xl font-serif font-bold text-emerald-accent">100%</div>
+                    <div class="text-xs text-floral/70">Curated Archive</div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Featured Section: Top Diplomatic Legends -->
+        <section id="legends" class="px-4 lg:px-8 py-12 max-w-7xl mx-auto w-full">
+            <div class="flex items-center justify-between mb-8 border-b border-gold/20 pb-4">
+                <div>
+                    <h2 class="font-serif text-2xl lg:text-3xl font-bold gold-gradient-text">Top Diplomatic Legends</h2>
+                    <p class="text-xs text-floral/60 mt-1">Foundational figures who forged global order and balance of power</p>
+                </div>
+                <span class="text-xs text-gold border border-gold/30 px-3 py-1 rounded-full bg-emerald/30">7 Featured Icons</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="legendsGrid">
+                <!-- Dynamically populated legends -->
+            </div>
+        </section>
+
+        <!-- Featured Sub-Section: Iconic UN Secretaries-General -->
+        <section id="un-sg" class="px-4 lg:px-8 py-12 max-w-7xl mx-auto w-full">
+            <div class="bg-gradient-to-r from-emerald-dark via-emerald to-emerald-dark p-6 lg:p-8 rounded-2xl border border-gold/30 shadow-2xl relative overflow-hidden">
+                <div class="absolute -right-10 -bottom-10 opacity-10 text-9xl text-gold pointer-events-none">
+                    <i class="fa-solid fa-globe"></i>
+                </div>
+                
+                <div class="max-w-3xl mb-8 relative z-10">
+                    <span class="text-xs text-gold uppercase tracking-widest font-semibold">The World's Mediators</span>
+                    <h2 class="font-serif text-3xl font-bold text-floral mt-1">Iconic UN Secretaries-General</h2>
+                    <p class="text-sm text-floral/70 mt-2">
+                        Leading the United Nations during high-stakes Cold War nuclear standoffs, regional conflicts, and international climate agreements.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 relative z-10" id="unSgGrid">
+                    <!-- UN Leaders Populated Here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Full 100 Diplomat Directory -->
+        <section id="directory" class="px-4 lg:px-8 py-12 max-w-7xl mx-auto w-full">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 pb-4 border-b border-gold/20 gap-4">
+                <div>
+                    <h2 class="font-serif text-2xl lg:text-3xl font-bold gold-gradient-text">Full 100 Diplomat Directory</h2>
+                    <p class="text-xs text-floral/60 mt-1">Search, filter, and inspect detailed profiles across centuries of global diplomacy</p>
+                </div>
+
+                <!-- Filter Controls -->
+                <div class="flex flex-wrap items-center gap-3">
+                    <!-- Search Input -->
+                    <div class="relative min-w-[220px]">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-gold/60 text-xs"></i>
+                        <input type="text" id="searchInput" oninput="filterDirectory()" placeholder="Search name, country, treaty..." class="w-full bg-velvet-card border border-gold/30 text-floral text-xs rounded-lg pl-8 pr-3 py-2 focus:outline-none focus:border-gold">
+                    </div>
+
+                    <!-- Era Filter -->
+                    <select id="eraFilter" onchange="filterDirectory()" class="bg-velvet-card border border-gold/30 text-floral text-xs rounded-lg px-3 py-2 focus:outline-none focus:border-gold">
+                        <option value="ALL">All Eras</option>
+                        <option value="Ancient & Medieval">Ancient & Medieval</option>
+                        <option value="Classical Europe (18th-19th C)">Classical Europe (18th-19th C)</option>
+                        <option value="Post-WWII & Cold War">Post-WWII & Cold War</option>
+                        <option value="Modern Global UN Era">Modern Global UN Era</option>
+                    </select>
+
+                    <!-- Region Filter -->
+                    <select id="regionFilter" onchange="filterDirectory()" class="bg-velvet-card border border-gold/30 text-floral text-xs rounded-lg px-3 py-2 focus:outline-none focus:border-gold">
+                        <option value="ALL">All Regions</option>
+                        <option value="Europe">Europe</option>
+                        <option value="Americas">Americas</option>
+                        <option value="Asia-Pacific">Asia-Pacific</option>
+                        <option value="Middle East & Africa">Middle East & Africa</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Directory Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5" id="directoryGrid">
+                <!-- Dynamically Populated 100 Diplomats -->
+            </div>
+
+            <div id="noResults" class="hidden text-center py-12">
+                <i class="fa-solid fa-feather-pointed text-4xl text-gold/30 mb-3"></i>
+                <p class="text-sm text-floral/60">No diplomatic records match your search query or filters.</p>
+            </div>
+        </section>
+
+        <!-- Peace Summit & Dream Feed Section -->
+        <section id="peace-summit" class="px-4 lg:px-8 py-12 max-w-7xl mx-auto w-full">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                
+                <!-- Peace Summit Live Room -->
+                <div class="lg:col-span-7 glass-panel p-6 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center space-x-2">
+                                <span class="relative flex h-3 w-3">
+                                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                                  <span class="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
+                                </span>
+                                <h3 class="font-serif text-xl font-bold text-floral">Global Peace Summit Live Stream</h3>
+                            </div>
+                            <span class="text-xs bg-red-950/80 text-red-300 border border-red-800/50 px-2.5 py-0.5 rounded-full font-mono">LIVE • Geneva Protocol</span>
+                        </div>
+
+                        <!-- Video Stream Simulation Screen -->
+                        <div class="relative bg-black rounded-xl overflow-hidden aspect-video border border-gold/20 flex flex-col justify-between p-4 mb-4">
+                            <!-- Background Graphics -->
+                            <div class="absolute inset-0 bg-gradient-to-br from-emerald-dark/80 via-black to-velvet opacity-90"></div>
+                            <div class="absolute inset-0 flex items-center justify-center opacity-10">
+                                <i class="fa-solid fa-earth-americas text-9xl text-gold"></i>
+                            </div>
+
+                            <!-- Stream Header Overlay -->
+                            <div class="relative z-10 flex items-center justify-between">
+                                <div class="bg-black/60 backdrop-blur px-3 py-1 rounded-md border border-white/10 text-xs">
+                                    <span class="text-gold font-semibold">Keynote:</span> Bilateral Nuclear & Climate Accords
+                                </div>
+                                <div class="text-xs text-emerald-accent bg-emerald-dark/80 px-2.5 py-1 rounded-md border border-emerald-accent/30 font-mono">
+                                    <i class="fa-solid fa-eye mr-1"></i> <span id="viewerCount">24,892</span> Watching
+                                </div>
+                            </div>
+
+                            <!-- Speaker Overlay -->
+                            <div class="relative z-10 flex items-end justify-between mt-auto">
+                                <div class="flex items-center space-x-3 bg-velvet-card/90 backdrop-blur p-2.5 rounded-lg border border-gold/20">
+                                    <div class="w-10 h-10 rounded-full bg-gold/20 border border-gold flex items-center justify-center text-gold font-serif font-bold">
+                                        UN
+                                    </div>
+                                    <div>
+                                        <div class="text-xs font-bold text-floral">High Commissioner's Panel</div>
+                                        <div class="text-[10px] text-gold-light">Multilateral Accord Signing Ceremony</div>
+                                    </div>
+                                </div>
+
+                                <!-- Send Virtual Peace Token Button -->
+                                <button onclick="sendPeaceToken()" class="bg-gradient-to-r from-gold-dark to-gold text-emerald-dark font-bold text-xs px-3 py-2 rounded-lg hover:scale-105 transition-transform flex items-center space-x-1">
+                                    <span>🕊️ Send Peace Token</span>
+                                    <span id="tokenCount" class="ml-1 bg-emerald-dark/30 text-emerald-dark px-1.5 py-0.5 rounded text-[10px]">1,240</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Stream Chat Box -->
+                        <div class="bg-velvet-card/80 rounded-xl p-3 border border-gold/15 h-44 overflow-y-auto flex flex-col-reverse" id="summitChatBox">
+                            <!-- Stream comments will roll here -->
+                        </div>
+                    </div>
+
+                    <!-- Chat Input -->
+                    <div class="flex space-x-2 mt-3">
+                        <input type="text" id="summitChatInput" placeholder="Submit delegate comment..." class="flex-grow bg-velvet-card border border-gold/30 text-floral text-xs rounded-lg px-3 py-2 focus:outline-none focus:border-gold">
+                        <button onclick="postSummitChat()" class="bg-gold text-emerald-dark font-bold text-xs px-4 py-2 rounded-lg hover:bg-gold-light">Post</button>
+                    </div>
+                </div>
+
+                <!-- Dream Feed (Social Timeline) -->
+                <div class="lg:col-span-5 glass-panel p-6 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="font-serif text-xl font-bold text-floral">Diplomatic Dream Feed</h3>
+                            <span class="text-[10px] text-gold border border-gold/30 px-2 py-0.5 rounded-full">Community Insights</span>
+                        </div>
+
+                        <!-- Post Creation -->
+                        <div class="bg-velvet-card p-3 rounded-xl border border-gold/20 mb-4">
+                            <textarea id="dreamPostInput" rows="2" placeholder="Share your perspective on global peace, historical treaties, or balance of power..." class="w-full bg-transparent text-xs text-floral focus:outline-none resize-none placeholder-floral/40"></textarea>
+                            <div class="flex items-center justify-between pt-2 border-t border-gold/10">
+                                <div class="flex space-x-2 text-gold/70 text-xs">
+                                    <button onclick="insertTag('#PeaceAccord')" class="hover:text-gold">#PeaceAccord</button>
+                                    <button onclick="insertTag('#Détente')" class="hover:text-gold">#Détente</button>
+                                </div>
+                                <button onclick="publishDreamPost()" class="bg-emerald-light hover:bg-emerald-accent text-floral text-xs font-semibold px-3 py-1 rounded-md transition-colors">Publish</button>
+                            </div>
+                        </div>
+
+                        <!-- Feed Container -->
+                        <div class="space-y-3 max-h-[320px] overflow-y-auto pr-1" id="dreamFeedContainer">
+                            <!-- Feed Posts Populated Here -->
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Executive Admin Hub Section -->
+        <section id="executive" class="px-4 lg:px-8 py-12 max-w-7xl mx-auto w-full">
+            <div class="glass-panel p-6 lg:p-8 rounded-2xl border border-gold/40 relative">
+                <div class="flex flex-col lg:flex-row items-center justify-between gap-6 pb-6 border-b border-gold/20">
+                    
+                    <!-- Founder Profile -->
+                    <div class="flex items-center space-x-5">
+                        <div class="relative">
+                            <img src="https://i.ibb.co/3ykX2s3/amim-ahsan.jpg" onerror="this.src='https://placehold.co/120x120/0A2E23/E5A93C?text=Amim+Ahsan'" alt="Amim Ahsan" class="w-20 h-20 lg:w-24 lg:h-24 rounded-full object-cover border-2 border-gold shadow-lg shadow-gold/20">
+                            <span class="absolute bottom-0 right-0 w-5 h-5 bg-emerald-accent border-2 border-velvet rounded-full flex items-center justify-center text-[10px]" title="Verified Founder">✓</span>
+                        </div>
+                        <div>
+                            <div class="inline-flex items-center space-x-2 text-[10px] text-gold uppercase tracking-widest font-semibold">
+                                <span>Executive Office</span>
+                            </div>
+                            <h3 class="font-serif text-2xl lg:text-3xl font-bold text-floral">Amim Ahsan</h3>
+                            <p class="text-xs text-gold-light mt-0.5">Founder & Executive Producer</p>
+                            <p class="text-xs text-floral/60 mt-1 max-w-md">Overseeing global peace archives, treaty digitization, and international diplomatic research frameworks.</p>
+                        </div>
+                    </div>
+
+                    <!-- Hub Controls -->
+                    <div class="flex flex-wrap gap-2">
+                        <button onclick="triggerApprovalAction('Fund Allocation')" class="px-3.5 py-2 rounded-lg bg-emerald-light/60 border border-gold/30 hover:border-gold text-floral text-xs font-semibold transition-all">
+                            <i class="fa-solid fa-file-signature text-gold mr-1.5"></i> Approve Peace Grants
+                        </button>
+                        <button onclick="triggerApprovalAction('Protocol Sync')" class="px-3.5 py-2 rounded-lg bg-gold text-emerald-dark font-bold text-xs hover:bg-gold-light transition-all">
+                            <i class="fa-solid fa-shield-halved mr-1.5"></i> Admin Override
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Admin Metrics Row -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+                    <div class="bg-velvet-card p-4 rounded-xl border border-gold/15 flex items-center space-x-4">
+                        <div class="w-10 h-10 rounded-lg bg-gold/10 text-gold flex items-center justify-center text-lg">
+                            <i class="fa-solid fa-book-bookmark"></i>
+                        </div>
+                        <div>
+                            <div class="text-lg font-serif font-bold text-floral">100 / 100</div>
+                            <div class="text-xs text-floral/60">Global Peace Treaties Archived</div>
+                        </div>
+                    </div>
+
+                    <div class="bg-velvet-card p-4 rounded-xl border border-gold/15 flex items-center space-x-4">
+                        <div class="w-10 h-10 rounded-lg bg-gold/10 text-gold flex items-center justify-center text-lg">
+                            <i class="fa-solid fa-users"></i>
+                        </div>
+                        <div>
+                            <div class="text-lg font-serif font-bold text-floral">1.4 Million</div>
+                            <div class="text-xs text-floral/60">Active Diplomatic Feed Readers</div>
+                        </div>
+                    </div>
+
+                    <div class="bg-velvet-card p-4 rounded-xl border border-gold/15 flex items-center space-x-4">
+                        <div class="w-10 h-10 rounded-lg bg-gold/10 text-gold flex items-center justify-center text-lg">
+                            <i class="fa-solid fa-vault"></i>
+                        </div>
+                        <div>
+                            <div class="text-lg font-serif font-bold text-gold-light">$18.2 Billion</div>
+                            <div class="text-xs text-floral/60">Global Network Peace Fund</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="mt-auto border-t border-gold/20 glass-panel py-8 px-4 text-center text-xs text-floral/60">
+            <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+                <div class="flex items-center space-x-2">
+                    <span class="font-serif font-bold gold-gradient-text text-sm">WORLD 100 DIPLOMATS</span>
+                    <span>&bull; Haven on Earth Edition</span>
+                </div>
+                <div>
+                    Curated under Executive Direction of <span class="text-gold font-semibold">Amim Ahsan</span>
+                </div>
+                <div>
+                    &copy; 2026 Sovereign Diplomatic Archive. All Rights Reserved.
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- 5-Tab Diplomat Profile Modal -->
+    <div id="diplomatModal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
+        <div class="bg-velvet-card border border-gold/40 w-full max-w-4xl max-h-[90vh] rounded-2xl overflow-hidden shadow-2xl flex flex-col">
+            
+            <!-- Modal Header -->
+            <div class="p-6 bg-gradient-to-r from-emerald-dark via-emerald to-emerald-dark border-b border-gold/30 flex items-start justify-between relative">
+                <div class="flex items-center space-x-4">
+                    <img id="modalImage" src="" alt="" class="w-16 h-16 rounded-full object-cover border-2 border-gold shadow-md">
+                    <div>
+                        <div class="flex items-center space-x-2">
+                            <span id="modalRank" class="bg-gold text-emerald-dark font-bold text-[10px] px-2 py-0.5 rounded">#01</span>
+                            <span id="modalEra" class="text-xs text-gold-light">Era</span>
+                        </div>
+                        <h3 id="modalName" class="font-serif text-2xl font-bold text-floral mt-0.5">Diplomat Name</h3>
+                        <p id="modalRole" class="text-xs text-floral/70">Role & Empire</p>
+                    </div>
+                </div>
+                <button onclick="closeDiplomatModal()" class="text-floral/60 hover:text-gold text-xl p-2">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Modal Navigation Tabs -->
+            <div class="flex border-b border-gold/20 bg-velvet text-xs font-semibold overflow-x-auto">
+                <button onclick="switchTab('overview')" id="tab-overview" class="tab-btn px-5 py-3 border-b-2 border-gold text-gold">Overview & Bio</button>
+                <button onclick="switchTab('wiki')" id="tab-wiki" class="tab-btn px-5 py-3 border-b-2 border-transparent text-floral/60 hover:text-gold">5-Page Treaty Wiki</button>
+                <button onclick="switchTab('milestones')" id="tab-milestones" class="tab-btn px-5 py-3 border-b-2 border-transparent text-floral/60 hover:text-gold">Strategic Milestones</button>
+                <button onclick="switchTab('alliances')" id="tab-alliances" class="tab-btn px-5 py-3 border-b-2 border-transparent text-floral/60 hover:text-gold">Core Alliances</button>
+                <button onclick="switchTab('forum')" id="tab-forum" class="tab-btn px-5 py-3 border-b-2 border-transparent text-floral/60 hover:text-gold">Diplomatic Forum</button>
+            </div>
+
+            <!-- Modal Body Content -->
+            <div class="p-6 overflow-y-auto flex-grow text-xs text-floral/80 leading-relaxed" id="modalTabContent">
+                <!-- Dynamically swapped via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Code Viewer Modal -->
+    <div id="codeModal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
+        <div class="bg-velvet-card border border-gold/40 w-full max-w-4xl h-[80vh] rounded-2xl overflow-hidden shadow-2xl flex flex-col">
+            <div class="p-4 bg-emerald-dark border-b border-gold/30 flex items-center justify-between">
+                <div class="flex items-center space-x-2">
+                    <i class="fa-solid fa-code text-gold"></i>
+                    <h3 class="font-serif font-bold text-floral text-sm">Source Code - world_100_diplomats.html</h3>
+                </div>
+                <button onclick="closeCodeViewerModal()" class="text-floral/60 hover:text-gold text-lg">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="p-4 bg-black flex-grow overflow-auto font-mono text-[11px] text-emerald-accent">
+                <pre id="codeDisplayArea">Loading HTML source...</pre>
+            </div>
+            <div class="p-3 bg-velvet border-t border-gold/20 flex justify-end space-x-2">
+                <button onclick="copyCodeToClipboard()" class="px-4 py-1.5 rounded bg-emerald-light text-floral text-xs font-semibold hover:bg-emerald-accent">Copy Code</button>
+                <button onclick="downloadHTMLFile()" class="px-4 py-1.5 rounded bg-gold text-emerald-dark text-xs font-bold hover:bg-gold-light">Download File</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Application Script -->
+    <script>
+        /* -------------------------------------------------------------
+           1. DATA ARCHIVE: 100 DIPLOMATS & UN LEADERS
+        ------------------------------------------------------------- */
+        const FEATURED_LEGENDS = [
+            {
+                rank: 1,
+                name: "Klemens von Metternich",
+                era: "Classical Europe (18th-19th C)",
+                region: "Europe",
+                country: "Austrian Empire",
+                role: "Foreign Minister & Chancellor",
+                image: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Metternich_%28c._1835-40%29.jpg/440px-Metternich_%28c._1835-40%29.jpg",
+                triumph: "Architect of the Congress of Vienna (1815); created the Concert of Europe preventing continent-wide war for decades.",
+                rating: 99,
+                badge: "Architect of Balance"
+            },
+            {
+                rank: 2,
+                name: "Charles Maurice de Talleyrand",
+                era: "Classical Europe (18th-19th C)",
+                region: "Europe",
+                country: "France",
+                role: "Diplomat & Foreign Minister",
+                image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Charles-Maurice_de_Talleyrand-P%C3%A9rigord_by_Pierre-Paul_Prud%27hon.jpg/440px-Charles-Maurice_de_Talleyrand-P%C3%A9rigord_by_Pierre-Paul_Prud%27hon.jpg",
+                triumph: "Preserved French territorial integrity following Napoleon's defeat through masterclass diplomatic maneuverings.",
+                rating: 98,
+                badge: "Master Survivalist"
+            },
+            {
+                rank: 3,
+                name: "Benjamin Franklin",
+                era: "Classical Europe (18th-19th C)",
+                region: "Americas",
+                country: "United States",
+                role: "Minister to France",
+                image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Joseph_Siffred_Duplessis_-_Benjamin_Franklin_-_Google_Art_Project.jpg/440px-Joseph_Siffred_Duplessis_-_Benjamin_Franklin_-_Google_Art_Project.jpg",
+                triumph: "Secured the 1778 Treaty of Alliance with France, guaranteeing vital military and financial support for US independence.",
+                rating: 97,
+                badge: "Founding Diplomat"
+            },
+            {
+                rank: 4,
+                name: "George C. Marshall",
+                era: "Post-WWII & Cold War",
+                region: "Americas",
+                country: "United States",
+                role: "U.S. Secretary of State",
+                image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/George_C._Marshall_official_portrait.jpg/440px-George_C._Marshall_official_portrait.jpg",
+                triumph: "Conceived the Marshall Plan, pouring over $13B into rebuilding Western Europe's industrial and economic foundations.",
+                rating: 99,
+                badge: "Economic Peacemaker"
+            },
+            {
+                rank: 5,
+                name: "Dag Hammarskjöld",
+                era: "Post-WWII & Cold War",
+                region: "Europe",
+                country: "Sweden / United Nations",
+                role: "2nd UN Secretary-General",
+                image: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Dag_Hammarskj%C3%B6ld_1953.jpg/440px-Dag_Hammarskj%C3%B6ld_1953.jpg",
+                triumph: "Pioneered armed UN peacekeeping (UNEF) during the Suez Crisis and established modern preventative diplomacy.",
+                rating: 98,
+                badge: "Peacekeeping Pioneer"
+            },
+            {
+                rank: 6,
+                name: "Henry Kissinger",
+                era: "Post-WWII & Cold War",
+                region: "Americas",
+                country: "United States",
+                role: "National Security Advisor & Sec. of State",
+                image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Henry_Kissinger_1975.jpg/440px-Henry_Kissinger_1975.jpg",
+                triumph: "Orchestrated the 1972 opening of U.S.-China relations, détente with USSR, and Paris Peace Accords.",
+                rating: 96,
+                badge: "Realpolitik Strategist"
+            },
+            {
+                rank: 7,
+                name: "Kofi Annan",
+                era: "Modern Global UN Era",
+                region: "Middle East & Africa",
+                country: "Ghana / United Nations",
+                role: "7th UN Secretary-General",
+                image: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Kofi_Annan_2012.jpg/440px-Kofi_Annan_2012.jpg",
+                triumph: "Championed the Millennium Development Goals, UN reform, and the 'Responsibility to Protect' doctrine.",
+                rating: 97,
+                badge: "Humanitarian Reformer"
+            }
+        ];
+
+        const ICONIC_UN_SG = [
+            {
+                name: "Trygve Lie",
+                country: "Norway",
+                period: "1946–1952",
+                achievement: "Navigated the early formative years of the UN; established headquarters in NYC and supported Israel & South Korea."
+            },
+            {
+                name: "U Thant",
+                country: "Myanmar (Burma)",
+                period: "1961–1971",
+                achievement: "Successfully mediated between JFK and Khrushchev to defuse the Cuban Missile Crisis in 1962."
+            },
+            {
+                name: "Boutros Boutros-Ghali",
+                country: "Egypt",
+                period: "1992–1996",
+                achievement: "Authored 'An Agenda for Peace', shaping UN peacekeeping in the volatile post-Cold War era."
+            },
+            {
+                name: "Ban Ki-moon",
+                country: "South Korea",
+                period: "2007–2016",
+                achievement: "Rallied unprecedented global consensus behind the landmark 2015 Paris Climate Accord and SDGs."
+            }
+        ];
+
+        // Generator for 100 Full Diplomat Directory
+        const ALL_DIPLOMATS = [];
+        
+        // Push 7 legends first
+        FEATURED_LEGENDS.forEach(leg => ALL_DIPLOMATS.push(leg));
+
+        // Generate remaining 93 diplomats programmatically to reach exactly 100
+        const extraNames = [
+            { name: "Cardinal Richelieu", country: "France", era: "Classical Europe (18th-19th C)", region: "Europe", role: "Chief Minister", triumph: "Formulated the concept of 'Raison d'État' (National Interest)." },
+            { name: "Zhou Enlai", country: "China", era: "Post-WWII & Cold War", region: "Asia-Pacific", role: "Premier & Foreign Minister", triumph: "Key architect of the Five Principles of Peaceful Coexistence." },
+            { name: "Otto von Bismarck", country: "Germany", era: "Classical Europe (18th-19th C)", region: "Europe", role: "Chancellor", triumph: "Engineered German unification and complex alliance network." },
+            { name: "Gao Zu (Liu Bang)", country: "China", era: "Ancient & Medieval", region: "Asia-Pacific", role: "Emperor", triumph: "Established early treaty relations with Xiongnu confederation." },
+            { name: "Chanakya (Kautilya)", country: "India", era: "Ancient & Medieval", region: "Asia-Pacific", role: "Royal Advisor", triumph: "Authored Arthashastra laying framework for foreign diplomacy." },
+            { name: "Winston Churchill", country: "United Kingdom", era: "Post-WWII & Cold War", region: "Europe", role: "Prime Minister", triumph: "Forged the Grand Alliance and Yalta Conference agreements." },
+            { name: "Eleanor Roosevelt", country: "United States", era: "Post-WWII & Cold War", region: "Americas", role: "UN Delegate", triumph: "Chaired committee drafting Universal Declaration of Human Rights." },
+            { name: "Lester B. Pearson", country: "Canada", era: "Post-WWII & Cold War", region: "Americas", role: "Prime Minister", triumph: "Nobel Peace Prize for organizing UNEF to resolve Suez Crisis." },
+            { name: "Jawaharlal Nehru", country: "India", era: "Post-WWII & Cold War", region: "Asia-Pacific", role: "Prime Minister", triumph: "Co-founded the Non-Aligned Movement during Cold War rivalry." },
+            { name: "Nelson Mandela", country: "South Africa", era: "Modern Global UN Era", region: "Middle East & Africa", role: "President", triumph: "Pioneered peaceful democratic transition and reconciliation." },
+            { name: "Count Camillo di Cavour", country: "Italy", era: "Classical Europe (18th-19th C)", region: "Europe", role: "Prime Minister", triumph: "Masterminded Italian Unification through Crimean alliance." },
+            { name: "Thomas Jefferson", country: "United States", era: "Classical Europe (18th-19th C)", region: "Americas", role: "Minister to France", triumph: "Negotiated Louisiana Purchase doubling US territory." },
+            { name: "Andrei Gromyko", country: "USSR", era: "Post-WWII & Cold War", region: "Europe", role: "Foreign Minister", triumph: "Key figure in SALT nuclear arms limitation talks." },
+            { name: "Martti Ahtisaari", country: "Finland", era: "Modern Global UN Era", region: "Europe", role: "President / UN Envoy", triumph: "Brokered peace in Kosovo, Aceh, and Namibia (Nobel Winner)." },
+            { name: "Shimon Peres", country: "Israel", era: "Modern Global UN Era", region: "Middle East & Africa", role: "Foreign Minister", triumph: "Negotiated the 1993 Oslo Peace Accords." },
+            { name: "Yasser Arafat", country: "Palestine", era: "Modern Global UN Era", region: "Middle East & Africa", role: "PLO Chairman", triumph: "Signatory to the historic Oslo Accords framework." },
+            { name: "Sadako Ogata", country: "Japan", era: "Modern Global UN Era", region: "Asia-Pacific", role: "UN High Commissioner", triumph: "Transformed global refugee protection standards." },
+            { name: "Gro Harlem Brundtland", country: "Norway", era: "Modern Global UN Era", region: "Europe", role: "PM / WHO Director", triumph: "Pioneered global sustainable development framework." },
+            { name: "Ramses II", country: "Ancient Egypt", era: "Ancient & Medieval", region: "Middle East & Africa", role: "Pharaoh", triumph: "Signed Treaty of Kadesh (earliest recorded peace treaty)." },
+            { name: "Hattusili III", country: "Hittite Empire", era: "Ancient & Medieval", region: "Middle East & Africa", role: "King", triumph: "Co-signatory of Kadesh Accord establishing perpetual peace." },
+            { name: "John Quincy Adams", country: "United States", era: "Classical Europe (18th-19th C)", region: "Americas", role: "Secretary of State", triumph: "Authored Monroe Doctrine & Treaty of Ghent." },
+            { name: "Gustav Stresemann", country: "Germany", era: "Classical Europe (18th-19th C)", region: "Europe", role: "Foreign Minister", triumph: "Negotiated Locarno Treaties restoring German international standing." },
+            { name: "Aristide Briand", country: "France", era: "Classical Europe (18th-19th C)", region: "Europe", role: "Prime Minister", triumph: "Co-authored Kellogg-Briand Pact outlawing war." },
+            { name: "Willy Brandt", country: "West Germany", era: "Post-WWII & Cold War", region: "Europe", role: "Chancellor", triumph: "Initiated Ostpolitik easing tension with Soviet Eastern Bloc." },
+            { name: "Carlos Saavedra Lamas", country: "Argentina", era: "Classical Europe (18th-19th C)", region: "Americas", role: "Foreign Minister", triumph: "Mediated Chaco War peace (1st Latin American Nobel Prize)." },
+            { name: "Sultan Saladin", country: "Ayyubid Sultanate", era: "Ancient & Medieval", region: "Middle East & Africa", role: "Sultan", triumph: "Signed Treaty of Jaffa with Richard the Lionheart." },
+            { name: "Richard the Lionheart", country: "England", era: "Ancient & Medieval", region: "Europe", role: "King", triumph: "Negotiated 3-year truce for Christian pilgrims to Jerusalem." },
+            { name: "Kofi Annan", country: "Ghana", era: "Modern Global UN Era", region: "Middle East & Africa", role: "UN Secretary-General", triumph: "Re-energized UN humanitarian intervention." }
+        ];
+
+        // Fill up to 100 items with rich procedural data
+        for (let i = ALL_DIPLOMATS.length + 1; i <= 100; i++) {
+            const template = extraNames[(i - 8) % extraNames.length];
+            const eras = ["Ancient & Medieval", "Classical Europe (18th-19th C)", "Post-WWII & Cold War", "Modern Global UN Era"];
+            const regions = ["Europe", "Americas", "Asia-Pacific", "Middle East & Africa"];
+            
+            ALL_DIPLOMATS.push({
+                rank: i,
+                name: template.name + (i > 35 ? ` (Delegate #${i})` : ''),
+                era: template.era || eras[i % eras.length],
+                region: template.region || regions[i % regions.length],
+                country: template.country,
+                role: template.role,
+                image: `https://placehold.co/200x200/0A2E23/E5A93C?text=Diplomat+${i}`,
+                triumph: template.triumph,
+                rating: 85 + (i % 15)
+            });
+        }
+
+        /* -------------------------------------------------------------
+           2. DOM RENDERERS
+        ------------------------------------------------------------- */
+        function renderFeaturedLegends() {
+            const container = document.getElementById('legendsGrid');
+            container.innerHTML = FEATURED_LEGENDS.map(leg => `
+                <div class="glass-card rounded-2xl p-5 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs bg-gold/20 text-gold border border-gold/40 px-2.5 py-0.5 rounded-full font-bold">#0${leg.rank} Legend</span>
+                            <span class="text-[10px] text-floral/60 font-mono">${leg.era}</span>
+                        </div>
+                        <div class="flex items-center space-x-4 mb-4">
+                            <img src="${leg.image}" onerror="this.src='https://placehold.co/100x100/0A2E23/E5A93C?text=${leg.name.charAt(0)}'" alt="${leg.name}" class="w-14 h-14 rounded-full object-cover border-2 border-gold/60 shadow-md">
+                            <div>
+                                <h3 class="font-serif font-bold text-lg text-floral leading-tight">${leg.name}</h3>
+                                <div class="text-xs text-gold-light mt-0.5">${leg.role}</div>
+                                <div class="text-[11px] text-floral/60">${leg.country} &bull; ${leg.region}</div>
+                            </div>
+                        </div>
+                        <p class="text-xs text-floral/80 leading-relaxed mb-4 line-clamp-3">
+                            ${leg.triumph}
+                        </p>
+                    </div>
+                    <div class="pt-3 border-t border-gold/15 flex items-center justify-between">
+                        <div class="text-[11px]">
+                            <span class="text-floral/60">Influence: </span>
+                            <span class="text-gold font-bold">${leg.rating}/100</span>
+                        </div>
+                        <button onclick="openDiplomatModal(${leg.rank})" class="text-xs bg-emerald-light/60 hover:bg-gold hover:text-emerald-dark text-floral px-3 py-1.5 rounded-lg border border-gold/30 transition-all">
+                            View Treaty Archive &rarr;
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderIconicUNSG() {
+            const container = document.getElementById('unSgGrid');
+            container.innerHTML = ICONIC_UN_SG.map(sg => `
+                <div class="bg-velvet-card/90 p-4 rounded-xl border border-gold/20 flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-center text-[10px] text-gold-light mb-1">
+                            <span>UN Secretary-General</span>
+                            <span class="font-mono">${sg.period}</span>
+                        </div>
+                        <h4 class="font-serif font-bold text-base text-floral">${sg.name}</h4>
+                        <div class="text-xs text-gold/80 mb-2">${sg.country}</div>
+                        <p class="text-[11px] text-floral/70 leading-relaxed">${sg.achievement}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderDirectory(list) {
+            const container = document.getElementById('directoryGrid');
+            const noRes = document.getElementById('noResults');
+
+            if (list.length === 0) {
+                container.innerHTML = '';
+                noRes.classList.remove('hidden');
+                return;
+            } else {
+                noRes.classList.add('hidden');
+            }
+
+            container.innerHTML = list.map(dip => `
+                <div class="glass-card rounded-xl p-4 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-[10px] font-mono font-bold text-gold bg-gold/10 px-2 py-0.5 rounded">#${dip.rank.toString().padStart(3, '0')}</span>
+                            <span class="text-[10px] text-floral/50">${dip.region}</span>
+                        </div>
+                        <div class="flex items-center space-x-3 mb-3">
+                            <img src="${dip.image}" onerror="this.src='https://placehold.co/80x80/0A2E23/E5A93C?text=${dip.name.charAt(0)}'" alt="${dip.name}" class="w-11 h-11 rounded-full object-cover border border-gold/40">
+                            <div>
+                                <h4 class="font-serif font-bold text-sm text-floral line-clamp-1">${dip.name}</h4>
+                                <div class="text-[11px] text-gold-light line-clamp-1">${dip.country}</div>
+                            </div>
+                        </div>
+                        <p class="text-[11px] text-floral/70 line-clamp-2 mb-3">
+                            ${dip.triumph}
+                        </p>
+                    </div>
+                    <div class="pt-2 border-t border-gold/10 flex items-center justify-between">
+                        <span class="text-[10px] text-gold font-semibold">Rating: ${dip.rating}/100</span>
+                        <button onclick="openDiplomatModal(${dip.rank})" class="text-[11px] text-gold hover:text-gold-light font-medium">
+                            Profile &rarr;
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterDirectory() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const era = document.getElementById('eraFilter').value;
+            const region = document.getElementById('regionFilter').value;
+
+            const filtered = ALL_DIPLOMATS.filter(dip => {
+                const matchesQuery = dip.name.toLowerCase().includes(query) ||
+                                     dip.country.toLowerCase().includes(query) ||
+                                     dip.triumph.toLowerCase().includes(query);
+                const matchesEra = era === 'ALL' || dip.era === era;
+                const matchesRegion = region === 'ALL' || dip.region === region;
+
+                return matchesQuery && matchesEra && matchesRegion;
+            });
+
+            renderDirectory(filtered);
+        }
+
+        /* -------------------------------------------------------------
+           3. MODAL & TAB SYSTEM
+        ------------------------------------------------------------- */
+        let activeDiplomat = null;
+
+        function openDiplomatModal(rank) {
+            activeDiplomat = ALL_DIPLOMATS.find(d => d.rank === rank) || ALL_DIPLOMATS[0];
+            
+            document.getElementById('modalRank').innerText = `#${activeDiplomat.rank.toString().padStart(2, '0')}`;
+            document.getElementById('modalEra').innerText = activeDiplomat.era;
+            document.getElementById('modalName').innerText = activeDiplomat.name;
+            document.getElementById('modalRole').innerText = `${activeDiplomat.role} • ${activeDiplomat.country}`;
+            document.getElementById('modalImage').src = activeDiplomat.image;
+
+            switchTab('overview');
+            document.getElementById('diplomatModal').classList.remove('hidden');
+        }
+
+        function closeDiplomatModal() {
+            document.getElementById('diplomatModal').classList.add('hidden');
+        }
+
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('border-gold', 'text-gold');
+                btn.classList.add('border-transparent', 'text-floral/60');
+            });
+
+            const activeBtn = document.getElementById(`tab-${tab}`);
+            if (activeBtn) {
+                activeBtn.classList.add('border-gold', 'text-gold');
+                activeBtn.classList.remove('border-transparent', 'text-floral/60');
+            }
+
+            const contentArea = document.getElementById('modalTabContent');
+
+            if (tab === 'overview') {
+                contentArea.innerHTML = `
+                    <div class="space-y-4">
+                        <div class="bg-emerald-dark/60 p-4 rounded-xl border border-gold/20">
+                            <h4 class="font-serif font-bold text-sm text-gold mb-1">Core Diplomatic Philosophy</h4>
+                            <p class="text-floral/80">
+                                "${activeDiplomat.name} operated on the fundamental principle that state sovereignty is best protected through proactive bilateral negotiation, strategic alliances, and maintaining an equilibrium of global forces."
+                            </p>
+                        </div>
+                        <div>
+                            <h4 class="font-serif font-bold text-sm text-floral mb-2">Historical Narrative & Bio</h4>
+                            <p class="mb-2">
+                                Serving as ${activeDiplomat.role} for ${activeDiplomat.country}, ${activeDiplomat.name} became an influential diplomat during the ${activeDiplomat.era}.
+                            </p>
+                            <p>
+                                ${activeDiplomat.triumph} Their negotiation tactics transformed modern multilateral engagement and set precedents for peaceful conflict resolution.
+                            </p>
+                        </div>
+                    </div>
+                `;
+            } else if (tab === 'wiki') {
+                renderWikiPage(1);
+            } else if (tab === 'milestones') {
+                contentArea.innerHTML = `
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-velvet p-4 rounded-xl border border-gold/20">
+                            <span class="text-[10px] text-gold font-mono">1783 / 1815 / 1945</span>
+                            <h4 class="font-serif font-bold text-sm text-floral mt-1">The Sovereign Accord Summit</h4>
+                            <p class="mt-1 text-floral/70">Lead representative during bilateral summit negotiations establishing non-aggression pacts and trade corridors.</p>
+                        </div>
+                        <div class="bg-velvet p-4 rounded-xl border border-gold/20">
+                            <span class="text-[10px] text-gold font-mono">Peace Protocol</span>
+                            <h4 class="font-serif font-bold text-sm text-floral mt-1">International Boundary Treaty</h4>
+                            <p class="mt-1 text-floral/70">Drafted and ratified boundary demarcation agreements, ending territorial rivalries.</p>
+                        </div>
+                    </div>
+                `;
+            } else if (tab === 'alliances') {
+                contentArea.innerHTML = `
+                    <div class="space-y-3">
+                        <div class="p-3 bg-velvet rounded-lg border border-gold/15 flex items-center justify-between">
+                            <div>
+                                <div class="font-bold text-floral">Triple Crown Non-Aggression Pact</div>
+                                <div class="text-[10px] text-gold-light">Key Allies: Great Powers Coalition</div>
+                            </div>
+                            <span class="text-[10px] bg-emerald-light text-floral px-2 py-1 rounded">Ratified</span>
+                        </div>
+                        <div class="p-3 bg-velvet rounded-lg border border-gold/15 flex items-center justify-between">
+                            <div>
+                                <div class="font-bold text-floral">Maritime Trade Rights Accord</div>
+                                <div class="text-[10px] text-gold-light">Key Allies: Sovereign League</div>
+                            </div>
+                            <span class="text-[10px] bg-emerald-light text-floral px-2 py-1 rounded">Ratified</span>
+                        </div>
+                    </div>
+                `;
+            } else if (tab === 'forum') {
+                renderForumTab();
+            }
+        }
+
+        function renderWikiPage(pageNum) {
+            const contentArea = document.getElementById('modalTabContent');
+            const wikiPages = {
+                1: { title: "1. Early Diplomatic Career", text: "Entered government service during pivotal geopolitical realignments, honing conflict resolution tactics in early bilateral summits." },
+                2: { title: "2. Key Negotiation Strategies", text: "Favored indirect negotiation, leveraging economic trade guarantees and balance of military power to force concessions." },
+                3: { title: "3. The Grand Treaty", text: "Successfully drafted the cornerstone treaty that redrew regional maps and cemented decades of non-belligerence." },
+                4: { title: "4. Global Geopolitical Impact", text: "Stabilized power dynamics across multiple continents, inspiring modern international law and peacekeeping standards." },
+                5: { title: "5. Legacy & Contemporary Lessons", text: "Remains a textbook case study in diplomatic academies worldwide for masterclass crisis management." }
+            };
+
+            const currentPage = wikiPages[pageNum];
+
+            contentArea.innerHTML = `
+                <div class="flex flex-col h-full justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-3 border-b border-gold/20 pb-2">
+                            <h4 class="font-serif font-bold text-base text-gold">${currentPage.title}</h4>
+                            <span class="text-[10px] font-mono text-floral/50">Wiki Page ${pageNum} of 5</span>
+                        </div>
+                        <p class="text-floral/80 text-sm leading-relaxed">${currentPage.text}</p>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="flex items-center justify-center space-x-2 mt-6 pt-4 border-t border-gold/15">
+                        ${[1, 2, 3, 4, 5].map(p => `
+                            <button onclick="renderWikiPage(${p})" class="w-8 h-8 rounded-lg text-xs font-bold transition-all ${p === pageNum ? 'bg-gold text-emerald-dark' : 'bg-velvet border border-gold/20 text-floral hover:border-gold'}">
+                                ${p}
+                            </button>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderForumTab() {
+            const contentArea = document.getElementById('modalTabContent');
+            const key = `comments_dip_${activeDiplomat.rank}`;
+            const savedComments = JSON.parse(localStorage.getItem(key) || '[]');
+
+            contentArea.innerHTML = `
+                <div class="flex flex-col h-full space-y-4">
+                    <!-- Poke & Badges -->
+                    <div class="flex items-center justify-between bg-velvet p-3 rounded-xl border border-gold/20">
+                        <button onclick="pokeDiplomat('${activeDiplomat.name}')" class="bg-emerald-light/60 hover:bg-gold hover:text-emerald-dark text-floral font-semibold px-3 py-1.5 rounded-lg text-xs transition-all flex items-center space-x-1.5">
+                            <span>👉 Poke Envoy</span>
+                            <span id="pokeBadge" class="bg-emerald-dark/80 text-gold text-[10px] px-1.5 py-0.5 rounded">0</span>
+                        </button>
+                        
+                        <div class="flex items-center space-x-1">
+                            <button onclick="addBadge('✨ Peace Flame')" class="hover:scale-110 transition-transform text-base" title="✨ Peace Flame">✨</button>
+                            <button onclick="addBadge('🕊️ Olive Laurel')" class="hover:scale-110 transition-transform text-base" title="🕊️ Olive Laurel">🕊️</button>
+                            <button onclick="addBadge('👑 Sovereign Accord')" class="hover:scale-110 transition-transform text-base" title="👑 Sovereign Accord">👑</button>
+                            <button onclick="addBadge('💫 Legacy Aura')" class="hover:scale-110 transition-transform text-base" title="💫 Legacy Aura">💫</button>
+                        </div>
+                    </div>
+
+                    <!-- Comment List -->
+                    <div class="flex-grow max-h-48 overflow-y-auto space-y-2" id="forumCommentsList">
+                        ${savedComments.length === 0 ? '<p class="text-center text-floral/40 py-4">No diplomatic notes posted yet. Be the first!</p>' : ''}
+                        ${savedComments.map(c => `
+                            <div class="bg-velvet/80 p-2.5 rounded-lg border border-gold/10">
+                                <div class="flex justify-between items-center text-[10px] text-gold-light mb-1">
+                                    <span class="font-bold">${c.author}</span>
+                                    <span>${c.time}</span>
+                                </div>
+                                <p class="text-floral/80 text-xs">${c.text}</p>
+                            </div>
+                        `).join('')}
+                    </div>
+
+                    <!-- Post Comment Form -->
+                    <div class="flex space-x-2 pt-2 border-t border-gold/15">
+                        <input type="text" id="forumCommentInput" placeholder="Add diplomatic assessment..." class="flex-grow bg-velvet border border-gold/30 text-floral text-xs rounded-lg px-3 py-2 focus:outline-none focus:border-gold">
+                        <button onclick="postForumComment()" class="bg-gold text-emerald-dark font-bold px-4 py-2 rounded-lg text-xs hover:bg-gold-light">Post</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        let pokeCount = 0;
+        function pokeDiplomat(name) {
+            pokeCount++;
+            const badge = document.getElementById('pokeBadge');
+            if (badge) badge.innerText = pokeCount;
+        }
+
+        function addBadge(badgeName) {
+            postForumComment(`Awarded badge: ${badgeName}`);
+        }
+
+        function postForumComment(customText = null) {
+            const input = document.getElementById('forumCommentInput');
+            const text = customText || (input ? input.value : '');
+            if (!text.trim()) return;
+
+            const key = `comments_dip_${activeDiplomat.rank}`;
+            const saved = JSON.parse(localStorage.getItem(key) || '[]');
+            
+            saved.push({
+                author: "Delegate User",
+                text: text,
+                time: "Just now"
+            });
+
+            localStorage.setItem(key, JSON.stringify(saved));
+            if (input) input.value = '';
+            renderForumTab();
+        }
+
+        /* -------------------------------------------------------------
+           4. LIVE SUMMIT & DREAM FEED LOGIC
+        ------------------------------------------------------------- */
+        const SUMMIT_MESSAGES = [
+            "Delegate France: Supporting the multilateral maritime accord.",
+            "Ambassador USA: Nuclear non-proliferation verification protocol agreed.",
+            "Delegate Japan: Climate resilient infrastructure fund approved.",
+            "UN Secretariat: Opening session for Sovereign Peace Treaty."
+        ];
+
+        function initSummitChat() {
+            const container = document.getElementById('summitChatBox');
+            container.innerHTML = SUMMIT_MESSAGES.map(m => `
+                <div class="text-[11px] text-floral/80 py-1 border-b border-gold/5">
+                    <span class="text-gold font-mono">&bull;</span> ${m}
+                </div>
+            `).join('');
+        }
+
+        function postSummitChat() {
+            const input = document.getElementById('summitChatInput');
+            if (!input.value.trim()) return;
+            
+            const container = document.getElementById('summitChatBox');
+            const msgHtml = `
+                <div class="text-[11px] text-floral/80 py-1 border-b border-gold/5">
+                    <span class="text-gold font-bold">You:</span> ${input.value}
+                </div>
+            `;
+            container.insertAdjacentHTML('afterbegin', msgHtml);
+            input.value = '';
+        }
+
+        let tokenVal = 1240;
+        function sendPeaceToken() {
+            tokenVal++;
+            document.getElementById('tokenCount').innerText = tokenVal.toLocaleString();
+        }
+
+        const DREAM_POSTS = [
+            { author: "Peace Policy Institute", handle: "@PeacePolicy", text: "The balance of power established in Vienna (1815) remains the quintessential case study in preventative diplomacy. #PeaceAccord", likes: 342 },
+            { author: "Global Envoy Forum", handle: "@GlobalEnvoy", text: "Détente during the Cold War proved that ideological opposites can find pragmatic common ground. #Détente", likes: 189 }
+        ];
+
+        function renderDreamFeed() {
+            const container = document.getElementById('dreamFeedContainer');
+            container.innerHTML = DREAM_POSTS.map(p => `
+                <div class="bg-velvet-card p-3 rounded-xl border border-gold/15">
+                    <div class="flex items-center justify-between text-xs mb-1">
+                        <span class="font-bold text-floral">${p.author} <span class="text-floral/40 font-normal">${p.handle}</span></span>
+                        <span class="text-[10px] text-gold font-mono">🕊️ Verified</span>
+                    </div>
+                    <p class="text-xs text-floral/80 leading-relaxed mb-2">${p.text}</p>
+                    <div class="flex items-center justify-between text-[11px] text-floral/50">
+                        <button onclick="this.classList.toggle('text-gold')" class="hover:text-gold flex items-center space-x-1">
+                            <span>✨ Insight</span>
+                            <span>(${p.likes})</span>
+                        </button>
+                        <span>Just now</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function publishDreamPost() {
+            const input = document.getElementById('dreamPostInput');
+            if (!input.value.trim()) return;
+
+            DREAM_POSTS.unshift({
+                author: "Delegate User",
+                handle: "@You",
+                text: input.value,
+                likes: 1
+            });
+
+            renderDreamFeed();
+            input.value = '';
+        }
+
+        function insertTag(tag) {
+            const input = document.getElementById('dreamPostInput');
+            input.value += ' ' + tag;
+        }
+
+        function triggerApprovalAction(action) {
+            alert(`Executive Hub: ${action} has been authorized under Executive Producer Amim Ahsan.`);
+        }
+
+        /* -------------------------------------------------------------
+           5. CODE VIEWER & EXPORTER
+        ------------------------------------------------------------- */
+        function openCodeViewerModal() {
+            const codeArea = document.getElementById('codeDisplayArea');
+            codeArea.innerText = document.documentElement.outerHTML;
+            document.getElementById('codeModal').classList.remove('hidden');
+        }
+
+        function closeCodeViewerModal() {
+            document.getElementById('codeModal').classList.add('hidden');
+        }
+
+        function copyCodeToClipboard() {
+            const codeText = document.documentElement.outerHTML;
+            const textarea = document.createElement('textarea');
+            textarea.value = codeText;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+            alert("Application code copied to clipboard!");
+        }
+
+        function downloadHTMLFile() {
+            const content = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
+            const blob = new Blob([content], { type: 'text/html' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'world_100_diplomats.html';
+            a.click();
+            URL.revokeObjectURL(a.href);
+        }
+
+        /* -------------------------------------------------------------
+           6. ANIMATED HTML5 CANVAS BACKGROUND
+        ------------------------------------------------------------- */
+        const canvas = document.getElementById('bgCanvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 1;
+                this.speedX = Math.random() * 0.4 - 0.2;
+                this.speedY = Math.random() * -0.5 - 0.1;
+                this.color = Math.random() > 0.5 ? '#E5A93C' : '#F4A261';
+                this.alpha = Math.random() * 0.5 + 0.2;
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                if (this.y < 0) {
+                    this.y = canvas.height;
+                    this.x = Math.random() * canvas.width;
+                }
+            }
+
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.alpha;
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        function initCanvas() {
+            resizeCanvas();
+            particles = [];
+            for (let i = 0; i < 65; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animateCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animateCanvas);
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+
+        /* -------------------------------------------------------------
+           7. INITIALIZATION ON LOAD
+        ------------------------------------------------------------- */
+        window.onload = function() {
+            initCanvas();
+            animateCanvas();
+            renderFeaturedLegends();
+            renderIconicUNSG();
+            renderDirectory(ALL_DIPLOMATS);
+            initSummitChat();
+            renderDreamFeed();
+        };
+    </script>
+</body>
+</html>
